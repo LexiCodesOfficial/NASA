@@ -1,6 +1,36 @@
 import * as ORR from "./init.js";
 import * as THREE from "../../../node_modules/three/build/three.module.js";
 import $ from "../../jquery/jquery.module.js";
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true })); 
+
+app.post('/sys', (req, res) => {
+  res.send(`Full name is:${req.body.question}.`);
+});
+
+const port = 8080;
+
+app.listen(port, () => {
+  console.log(`Server running on port${port}`);
+});
+
+import { GoogleGenerativeAI } from "@google/generative-ai";
+const api = "AIzaSyDgiM8UqYKzFLaQQRp6mYXGx-N4gvGrNCo"
+const genAI = new GoogleGenerativeAI(api);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+const prompt = req.body.question;
+const result = await model.generateContent(prompt);
+console.log(result.response.text());
+var app2 = express();
+
+app2.get('/data', function(req, res){
+  res.send('hello world'); //replace with your data here
+});
+
+app.listen(3000);
 
 let planetData, asteroidData, moonData, cometData, starData;
 let datasets = 0;

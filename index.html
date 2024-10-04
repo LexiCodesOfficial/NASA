@@ -92,8 +92,20 @@
                         </td>
                     </tr>
                 </table>
-                <label for="autocomplete"><b>SEARCH FOR AN OBJECT:</b></label>
-                <input id="autocomplete" title="Type an object's name">
+                <form action="http://localhost:8080/sys" method="POST">
+                    First name: <input type="text" name="question"><br>
+                   <button type="submit">Send to backend</button>
+                  </form>
+                <label id="data"></label>
+                <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
+                <script>
+
+                    $('.my_selector').click(function(){
+                        $.get('http://localhost:3000/data', {}, function(data){
+                             console.log(data)
+                        });
+                     });
+                </script>
                 <fieldset>
                     <legend>Include:&nbsp;&nbsp;</legend>
                     <input type="checkbox" name="moonBox" id="moonBox" title="Allow moons in search" checked>

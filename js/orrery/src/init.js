@@ -9,3 +9,4 @@ export * from "./maker.js";
 export * from "./launch.js";
 export * from "./mainloop.js";
 export * from "./ui.js";
+export * from "./ai.js";
