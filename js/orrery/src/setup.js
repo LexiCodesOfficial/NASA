@@ -20,7 +20,7 @@ export const initialPoint = 0.01;
 
 // temporal constants
 export const daysPerCent = 36525.6363;
-export const fps = 60; // max FPS
+export const fps = 360; // max FPS
 export const rates = [ -1/20/fps, -1/100/fps, -100/daysPerCent/fps, -20/daysPerCent/fps, -1/daysPerCent/fps, -1/24/daysPerCent/fps, -1/86400/daysPerCent/fps, 0, 1/86400/daysPerCent/fps, 1/24/daysPerCent/fps, 1/daysPerCent/fps, 20/daysPerCent/fps, 100/daysPerCent/fps, 1/100/fps, 1/20/fps]; // centuries per frame
 
 // constants
