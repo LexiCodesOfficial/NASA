@@ -109,13 +109,61 @@ export function clickTag(t) {
     }
     const planetInfo = ORR.state.clickedPlanet.info;
     let moonInfo = ""
+    const mercuryInfo = ORR.state.clickedPlanet.mercury;
+    const venusInfo = ORR.state.clickedPlanet.venus;
+    const earthInfo = ORR.state.clickedPlanet.earth;
     const marsInfo = ORR.state.clickedPlanet.mars;
+    const jupiterInfo = ORR.state.clickedPlanet.jupiter;
+    const saturnInfo = ORR.state.clickedPlanet.saturn;
+    const plutoInfo = ORR.state.clickedPlanet.pluto;
+    const uranusInfo = ORR.state.clickedPlanet.uranus;
+    const neptuneInfo = ORR.state.clickedPlanet.neptune;
 
-    if (ORR.state.clickedPlanet.name == "Mars") {
+    if (ORR.state.clickedPlanet.name == "Mercury") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + mercuryInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+            zoomToggle();
+        })
+    } else if (ORR.state.clickedPlanet.name == "Venus") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + venusInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+            zoomToggle();
+        })
+    } else if (ORR.state.clickedPlanet.name == "Earth") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + earthInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+            zoomToggle();
+        })
+    } else if (ORR.state.clickedPlanet.name == "Mars") {
         $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + marsInfo + "<br/ >" );
         $("#moonZoom").on("click", function() {
-        zoomToggle();
-    })
+            zoomToggle();
+        })
+    } else if (ORR.state.clickedPlanet.name == "Jupiter") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + jupiterInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+            zoomToggle();
+        })
+    } else if (ORR.state.clickedPlanet.name == "Saturn") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + saturnInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+            zoomToggle();
+        })
+    } else if (ORR.state.clickedPlanet.name == "Pluto") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + plutoInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+            zoomToggle();
+        })
+    } else if (ORR.state.clickedPlanet.name == "Uranus") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + uranusInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+            zoomToggle();
+        })
+    } else if (ORR.state.clickedPlanet.name == "Neptune") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + neptuneInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+            zoomToggle();
+        })
     } else {
         $("#planetInfo").html( planetInfo + moonInfo );
         $("#moonZoom").on("click", function() {
@@ -315,24 +363,6 @@ $("#setTime").on("click", function() {
     time.substr(0,2) + ":" + time.substr(2,2);
     ORR.setTime(ORR.unixToMJD(Date.parse(date)));
 });
-
-function readTextFile(file)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                alert(allText);
-            }
-        }
-    }
-    rawFile.send(null);
-}
 
 $("#clearSplash").on("click", function() {
     $("#splashScreen").hide(300);
