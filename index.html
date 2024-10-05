@@ -6,21 +6,6 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <title>Virtual Orrery</title>
 
-        <script type="module">
-            import { GoogleGenerativeAI } from "@google/generative-ai";
-
-            const genAI = new GoogleGenerativeAI('AIzaSyDgiM8UqYKzFLaQQRp6mYXGx-N4gvGrNCo');
-
-            async function run() {
-                const model = genAI.getGenerativeModel({model: "gemini-1.5-flash-8b"});
-                const prompt = "Write a story about a magic backpack.";
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                const text = await response.text();
-            }
-            run();
-        </script>
-
         <script type="x-shader/x-vertex" id="vertexshader">
 			varying vec2 vUv;
 			void main() {
@@ -149,22 +134,6 @@
                     </span>
                 </div>
             </div>  
-            <h3>Ask AI a question</h3>
-            <div>
-                <table>
-                    <tr>
-                        <div class="chat-input">
-                            <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-                            <span id="send-btn" class="material-symbols-rounded">send</span>
-                          </div>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            Powered By Gemini 1.5 Flash
-                        </td>
-                    </tr>
-                </table>
-            </div>
             <h3>Help</h3>
             <div>
                 <p><b>SPACE BAR:</b> Pause/resume time<br>
