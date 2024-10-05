@@ -6,7 +6,21 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <title>Virtual Orrery</title>
 
-        <!-- shaders -->
+        <script type="module">
+            import { GoogleGenerativeAI } from "@google/generative-ai";
+
+            const genAI = new GoogleGenerativeAI('AIzaSyDgiM8UqYKzFLaQQRp6mYXGx-N4gvGrNCo');
+
+            async function run() {
+                const model = genAI.getGenerativeModel({model: "gemini-1.5-flash-8b"});
+                const prompt = "Write a story about a magic backpack.";
+                const result = await model.generateContent(prompt);
+                const response = await result.response;
+                const text = await response.text();
+            }
+            run();
+        </script>
+
         <script type="x-shader/x-vertex" id="vertexshader">
 			varying vec2 vUv;
 			void main() {
@@ -56,6 +70,7 @@
         <meta name="theme-color" content="#ffffff">
 
         <script type="module" src="js/orrery/src/launch.js"></script>
+        <script type="module" src="index.js"></script>
         
     </head>
     <body>
@@ -92,20 +107,6 @@
                         </td>
                     </tr>
                 </table>
-                <form action="http://localhost:8080/sys" method="POST">
-                    First name: <input type="text" name="question"><br>
-                   <button type="submit">Send to backend</button>
-                  </form>
-                <label id="data"></label>
-                <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
-                <script>
-
-                    $('.my_selector').click(function(){
-                        $.get('http://localhost:3000/data', {}, function(data){
-                             console.log(data)
-                        });
-                     });
-                </script>
                 <fieldset>
                     <legend>Include:&nbsp;&nbsp;</legend>
                     <input type="checkbox" name="moonBox" id="moonBox" title="Allow moons in search" checked>
@@ -148,47 +149,18 @@
                     </span>
                 </div>
             </div>  
-            <h3>Set Time and Geolocation</h3>
+            <h3>Ask AI a question</h3>
             <div>
                 <table>
                     <tr>
-                        <td>
-                            <label for="manualYear">Year:</label>
-                            <input id="manualYear" title="Year (&plusmn;9999)">
-                        </td>
-                        <td>
-                            <label for="manualDay">MMDD:</label>
-                            <input id="manualDay" title="Month and Day (MMDD)">
-                        </td>
-                        <td>
-                            <label for="manualTime">Time:</label>
-                            <input id="manualTime" title="Time of Day (HHMM in military time)">
-                        </td>
-                        <td style="vertical-align: bottom;">
-                            <button id="setTime" title="Set time"><img src="data/set.svg"></button>
-                        </td>
+                        <div class="chat-input">
+                            <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+                            <span id="send-btn" class="material-symbols-rounded">send</span>
+                          </div>
                     </tr>
                     <tr>
                         <td colspan="4">
-                            Valid date range: 9999 BC to 9999 AD<br>Use negative year values for BC<br>Time in 4-digit military time
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="manualLat">Lat:</label>
-                            <input id="manualLat" title="Latitude (decimal degrees)">
-                        </td>
-                        <td>
-                            <label for="manualLon">Lon:</label>
-                            <input id="manualLon" title="Longitude (decimal degrees)">
-                        </td>
-                        <td colspan="2" style="vertical-align: bottom;">
-                            <button id="setCoords" title="Set coordinates"><img src="data/set.svg"></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            Use decimal degrees for lat/long,<br>negative values for west or south
+                            Powered By Gemini 1.5 Flash
                         </td>
                     </tr>
                 </table>
@@ -214,17 +186,11 @@
                 <b>n: (integer)</b> Small asteroid limit (max: <span id="smallRoids"></span>)</p>
                 <button id="openSplash">About</button>
             </div>
-            <!--
-            <h3>Display Options</h3>
-            <div>
-                Orbit Opacity:<div id="slider"></div>
-            </div>
-            -->
         </div>
 
         <div id="splashScreen">
             <img id="logo" src="data/logo.svg">
-            <p>CC BY 4.0 Chris Impink&nbsp;&nbsp;&bull;&nbsp;&nbsp;v1.1.7<br><br>
+            <p>CC BY 4.0 &nbsp;&nbsp;&bull;&nbsp;&nbsp;v1.1.7<br><br>
             Data courtesy of <a href="http://nasa.gov" target="_blank">NASA</a>, <a href="http://jpl.nasa.gov" target="_blank">JPL</a>, <a href="http://en.wikipedia.org" target="_blank">Wikipedia</a>, and <a href="https://www.solarsystemscope.com" target="_blank">Solar System Scope</a>.<br>
             Built with <a href="http://threejs.org" target="_blank">three.js</a> and <a href="http://jquery-ui.com" target="_blank">jQueryUI</a>.
             <button id="clearSplash">Close</button>

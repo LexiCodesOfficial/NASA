@@ -1,7 +1,6 @@
 import * as ORR from "./init.js";
 import * as TWEEN from "../../tween/tween.esm.js";
 import $ from "../../jquery/jquery.module.js";
-import * as AI from "./ai.js";
 
 const planetScale = {f: 1.0};
 const planetMoons = []; // moons of the the currently focused planet
@@ -110,15 +109,25 @@ export function clickTag(t) {
     }
     const planetInfo = ORR.state.clickedPlanet.info;
     let moonInfo = ""
+    const marsInfo = ORR.state.clickedPlanet.mars;
+
+    if (ORR.state.clickedPlanet.name == "Mars") {
+        $("#planetInfo").html( planetInfo + moonInfo + "<br /><br />" + marsInfo + "<br/ >" );
+        $("#moonZoom").on("click", function() {
+        zoomToggle();
+    })
+    } else {
+        $("#planetInfo").html( planetInfo + moonInfo );
+        $("#moonZoom").on("click", function() {
+        zoomToggle();
+    })
+    }
     if (ORR.state.clickedPlanet.moons > 0) {
         moonInfo = '<br><a id="moonZoom">Moons: ' + ORR.state.clickedPlanet.moons + ' (' + ORR.state.clickedPlanet.largestMoon;
         moonInfo +=  (ORR.state.clickedPlanet.moons > 1) ? ',&nbsp;&nbsp;' + ORR.state.clickedPlanet.secondMoon : '';
         moonInfo += (ORR.state.clickedPlanet.moons > 2) ? ', et al.)</a>' : ')</a>';
     }
-    $("#planetInfo").html( planetInfo + moonInfo );
-        $("#moonZoom").on("click", function() {
-        zoomToggle();
-    })
+    
     const adjustedA = (ORR.state.clickedPlanet.semiMajorAxis < 0.1 ) ? (ORR.state.clickedPlanet.semiMajorAxis * ORR.AU).toFixed(1) + '&nbsp;km' : ORR.state.clickedPlanet.semiMajorAxis.toFixed(4) + '&nbsp;AU';
     $("#semiMajorAxis").html(adjustedA);
     const adjustedP = (ORR.state.clickedPlanet.period < 0.01 ) ? (ORR.state.clickedPlanet.period * ORR.daysPerCent).toFixed(3) + '&nbsp;days' : (ORR.state.clickedPlanet.period * 100).toFixed(3) + '&nbsp;years'
@@ -306,6 +315,24 @@ $("#setTime").on("click", function() {
     time.substr(0,2) + ":" + time.substr(2,2);
     ORR.setTime(ORR.unixToMJD(Date.parse(date)));
 });
+
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                alert(allText);
+            }
+        }
+    }
+    rawFile.send(null);
+}
 
 $("#clearSplash").on("click", function() {
     $("#splashScreen").hide(300);
